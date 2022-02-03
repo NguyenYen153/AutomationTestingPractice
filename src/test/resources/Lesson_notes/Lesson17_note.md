@@ -1,6 +1,3 @@
-# Lesson 17
-* Branch `lesson-17`
-
 ## Mouse hover | Contain data in a list of objects
 * Link: https://the-internet.herokuapp.com/hovers
 * Purpose: There are some elements that we need to hover over to trigger

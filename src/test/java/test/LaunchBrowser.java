@@ -24,7 +24,7 @@ public class LaunchBrowser {
         //Open a webpage
         WebDriver driver = new ChromeDriver(chromeoptions);
         driver.get("https://google.com");
-        Thread.sleep(3000);
+        Thread.sleep(10000);
         driver.quit();
     }
 }

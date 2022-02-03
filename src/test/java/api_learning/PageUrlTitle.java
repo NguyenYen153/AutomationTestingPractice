@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 public class PageUrlTitle {
     public static void main(String[] args) throws InterruptedException {
+
         WebDriver driver = DriverFactory.getChromeDriver();
         try {//Open target page
             driver.get("https://the-internet.herokuapp.com/");
