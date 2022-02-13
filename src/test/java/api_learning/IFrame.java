@@ -11,7 +11,7 @@ public class IFrame implements Urls {
 
         WebDriver driver = DriverFactory.getChromeDriver();
         try {
-            // Navigate to the test page
+            // Navigate to the test pa
             driver.get(BASE_URL_1.concat(IFRAME));
 
             // Switch to iFrame

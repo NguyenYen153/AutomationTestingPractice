@@ -16,6 +16,9 @@ public class HeaderComponent extends Component {
         super(driver, element);
         this.driver = driver;
     }
+    public LogoComponent logoComp(){
+        return findComponent(LogoComponent.class, driver);
+    }
 
     public WebElement searchInputElem(){
         return this.component.findElement(searchInputSel);

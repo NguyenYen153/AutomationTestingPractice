@@ -13,3 +13,7 @@ AfterSuite/Test/Class/Method
 ```
 
 * Order and priorities and dependsOn
+```
+- BeforeMethod by deafault run in A-Z order
+- Nếu method dependsOn  fail -> k thực hiện method có dependsOn z
+```

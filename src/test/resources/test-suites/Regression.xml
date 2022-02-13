@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Regression">
+    <test name="Global UI" >
+        <classes>
+            <class name="test.global.FooterTestWithTestNG" />
+            <class name="test.global.HeaderTestWithTestNG" />
+
+        </classes>
+    </test>
+
+</suite>
