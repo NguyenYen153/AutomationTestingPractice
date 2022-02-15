@@ -13,7 +13,7 @@ import url.Urls;
 public class HeaderTestWithTestNG implements Urls {
 
     @Test
-    private void testRegisterPageHeader() {
+    private void testHomePageHeader() {
         WebDriver driver = DriverFactory.getChromeDriver();
         driver.get(BASE_URL_2.concat(HOME_PAGE));
 
@@ -33,8 +33,8 @@ public class HeaderTestWithTestNG implements Urls {
             driver.quit();
         }
     }
-
-    private static void testHomepageHeader() {
+    @Test
+    private void testRegisterpageHeader() {
         WebDriver driver = DriverFactory.getChromeDriver();
         driver.get(BASE_URL_2.concat(REGISTER_PAGE));
 

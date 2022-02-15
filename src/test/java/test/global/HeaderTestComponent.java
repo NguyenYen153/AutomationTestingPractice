@@ -48,7 +48,7 @@ public class HeaderTestComponent implements Urls {
         @Test
         public void testCategorypageHeader() {
             WebDriver driver = DriverFactory.getChromeDriver();
-            List<String> categorySlugs = Arrays.asList("/books", "/computers", "electronics");
+            List<String> categorySlugs = Arrays.asList("/books", "/computers", "/electronics");
             String randomSlug = categorySlugs.get(new SecureRandom().nextInt(categorySlugs.size()));
             driver.get(BASE_URL_2.concat(randomSlug));
 

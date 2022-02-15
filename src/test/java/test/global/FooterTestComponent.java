@@ -49,8 +49,9 @@ public class FooterTestComponent implements Urls {
     @Test
     public void testCategoryPageFooter() {
         WebDriver driver = DriverFactory.getChromeDriver();
-        List<String> categorySlugs = Arrays.asList("/books", "/computers", "electronics");
+        List<String> categorySlugs = Arrays.asList("/books", "/computers", "/electronics");
         String randomSlug = categorySlugs.get(new SecureRandom().nextInt(categorySlugs.size()));
+        System.out.println(randomSlug);
         driver.get(BASE_URL_2.concat(randomSlug));
 
         try {

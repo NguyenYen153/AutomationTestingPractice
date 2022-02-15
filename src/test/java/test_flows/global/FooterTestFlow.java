@@ -1,20 +1,17 @@
 package test_flows.global;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import models.components.global.footer.*;
 import models.pages.BasePage;
-import models.pages.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Test;
-import test.global.GenericTestFlow;
+import url.Urls;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FooterTestFlow {
+public class FooterTestFlow implements Urls {
     private WebDriver driver;
     public  FooterTestFlow(WebDriver driver){
         this.driver = driver;
@@ -43,8 +40,10 @@ public class FooterTestFlow {
 
         List<String> expectedLinkTexts = Arrays.asList("Sitemap", "Shipping & Returns", "Privacy Notice",
                 "Conditions of Use", "About us", "Contact us");
-        List<String> expectedLinkHrefs = Arrays.asList("/sitemap", "/shipping-returns", "privacy-policy",
-                "/conditions-of-use", "/about-us", "contactus");
+        List<String> expectedLinkHrefs = Arrays.asList("http://demowebshop.tricentis.com/sitemap",
+                "http://demowebshop.tricentis.com/shipping-returns", "http://demowebshop.tricentis.com/privacy-policy",
+                "http://demowebshop.tricentis.com/conditions-of-use", "http://demowebshop.tricentis.com/about-us",
+                "http://demowebshop.tricentis.com/contactus");
         //VERIFICATION
         verifyColumnData(informationColumnComp, expectedLinkTexts, expectedLinkHrefs);
     }
@@ -57,8 +56,10 @@ public class FooterTestFlow {
 
         List<String> expectedLinkTexts = Arrays.asList("Search", "News", "Blog",
                 "Recently viewed products", "Compare products list", "New products");
-        List<String> expectedLinkHrefs = Arrays.asList("/search", "/news", "/blog",
-                "/recentlyviewedproducts", "/compareproducts", "/newproducts");
+        List<String> expectedLinkHrefs = Arrays.asList("http://demowebshop.tricentis.com/search",
+                "http://demowebshop.tricentis.com/news", "http://demowebshop.tricentis.com/blog",
+                "http://demowebshop.tricentis.com/recentlyviewedproducts",
+                "http://demowebshop.tricentis.com/compareproducts", "http://demowebshop.tricentis.com/newproducts");
 
         //VERIFICATION
         verifyColumnData(customerServiceColumnComponent, expectedLinkTexts, expectedLinkHrefs);
@@ -73,8 +74,9 @@ public class FooterTestFlow {
 
         List<String> expectedLinkTexts = Arrays.asList("My account", "Orders", "Addresses",
                 "Shopping cart", "Wishlist");
-        List<String> expectedLinkHrefs = Arrays.asList("/customer/info", "/customer/orders", "customer/addresses",
-                "/cart", "/wishlist");
+        List<String> expectedLinkHrefs = Arrays.asList("http://demowebshop.tricentis.com/customer/info",
+                "http://demowebshop.tricentis.com/customer/orders", "http://demowebshop.tricentis.com/customer/addresses",
+                "http://demowebshop.tricentis.com/cart", "http://demowebshop.tricentis.com/wishlist");
         //VERIFICATION
         verifyColumnData(myAccountColumnComp, expectedLinkTexts, expectedLinkHrefs);
 
@@ -85,8 +87,8 @@ public class FooterTestFlow {
         String expectedTitle = "FOLLOW US";
         Assert.assertEquals(actualColumTitle, expectedTitle,"[ERR] Column Title is incorrect!");
 
-        List<String> expectedLinkTexts = Arrays.asList("Facebook ", "Twitter", "RSS",
-                "YouTube", "Google+ ");
+        List<String> expectedLinkTexts = Arrays.asList("Facebook", "Twitter", "RSS",
+                "YouTube", "Google+");
         List<String> expectedLinkHrefs = Arrays.asList("http://www.facebook.com/nopCommerce", "https://twitter.com/nopCommerce",
                 "http://demowebshop.tricentis.com/news/rss/1",
                 "http://www.youtube.com/user/nopCommerce", "https://plus.google.com/+nopcommerce");
@@ -106,12 +108,16 @@ public class FooterTestFlow {
             Assert.fail("[ERR] Texts or HyperLinks is empty");
         }
         //SIZE is equal, each element inside is EQUAL
-        Assert.assertTrue(actualLinkTexts.size() == expectedLinkTexts.size(), "[ERR] Size of linktext in footer column is incorrect");
+        Assert.assertTrue(actualLinkTexts.size() == expectedLinkTexts.size(),
+                "[ERR] Size of linktext in footer column is incorrect");
         for (String actualLinkText : actualLinkTexts){
+            //System.out.println("Linktext " + actualLinkText);
             Assert.assertTrue(expectedLinkTexts.contains(actualLinkText), "[ERR] Link text " + actualLinkText + " is incorrect");
         }
-        for (String actualLinkHref : actualLinkHrefs){
-            Assert.assertTrue(expectedLinkTexts.contains(actualLinkHref), "[ERR] Hyperlink " + actualLinkHref + " is incorrect");
+
+        for (String actualLinkHref : actualLinkHrefs) {
+            //System.out.println("Hyperlink " + actualLinkHref);
+            Assert.assertTrue(expectedLinkHrefs.contains(actualLinkHref), "[ERR] Hyperlink " + actualLinkHref + " is incorrect");
         }
     }
 }
