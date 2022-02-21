@@ -8,12 +8,13 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import url.Urls;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HeaderTestFlow {
+public class HeaderTestFlow implements Urls {
     private WebDriver driver;
 
     public HeaderTestFlow(WebDriver driver) {
@@ -47,10 +48,9 @@ public class HeaderTestFlow {
     private void verifyHeaderLinkWapper(HeaderComponent headerComponent){
         int expectedLinkSize = 4;
         int actualLinkSize = headerComponent.allLinksNumber();
-        List<String> expectedHyperlinkWrappers = Arrays.asList("http://demowebshop.tricentis.com/register", "http://demowebshop.tricentis.com/login",
-                "http://demowebshop.tricentis.com/cart", "http://demowebshop.tricentis.com/wishlist");
+        List<String> expectedHyperlinkWrappers = Arrays.asList("/register", "/login",
+                "/cart", "/wishlist");
         List<String> expectedLinkWrapperText = Arrays.asList("Register", "Log in", "Shopping cart\n(0)", "Wishlist\n(0)");
-
         List<String> actualLinkWrapperTexts = new ArrayList<>();
         List<String> actualHyperLinkWrappers = new ArrayList<>();
         for (WebElement link : headerComponent.allLinkHrefsWrapper()){
@@ -71,7 +71,8 @@ public class HeaderTestFlow {
 
         for (String actualLinkHref : actualHyperLinkWrappers) {
             System.out.println("Hyperlink " + actualLinkHref);
-            Assert.assertTrue(expectedHyperlinkWrappers.contains(actualLinkHref), "[ERR] Hyperlink WRAPPER " + actualLinkHref + " is incorrect");
+            Assert.assertTrue(expectedHyperlinkWrappers.contains(actualLinkHref.substring(BASE_URL_2.length())),
+                    "[ERR] Hyperlink " + actualLinkHref + " is incorrect value!");
         }
     }
     private void verifySearchBox(HeaderComponent headerComponent){

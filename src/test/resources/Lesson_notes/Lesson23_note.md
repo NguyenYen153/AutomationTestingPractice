@@ -4,6 +4,9 @@
 ## Allure reporter
 - Installation: Dependency and allure commandline tool
 - Generate report
+Command: 1. allure generate allure-results
+allure generate allure-results --clean (Xóa allure report, Xóa bằng cmd: rm -rf allure-re*)
+2. allure open
 
 ## BaseTest
 - Driver initialization

@@ -2,6 +2,7 @@ package test_flows.global;
 
 import models.components.global.footer.*;
 import models.pages.BasePage;
+import models.pages.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -30,7 +31,12 @@ public class FooterTestFlow implements Urls {
         verifyInformationColumn(footerComponent);
         verifyCustomerColumn(footerComponent);
         verifyMyAccountColumn(footerComponent);
-        verifyFollowUsColumn(footerComponent);
+        //HANDLE DIFFERENT FLOW ON PAGES
+        if( page instanceof HomePage){
+            System.out.println("TEST  Home Page | verifyFollowUsColumn");
+            verifyFollowUsColumn(footerComponent);
+        }
+
     }
     private void verifyInformationColumn(FooterComponent footerComponent) {
         InformationColumnComponent informationColumnComp = footerComponent.informationColumnComp();
@@ -40,10 +46,8 @@ public class FooterTestFlow implements Urls {
 
         List<String> expectedLinkTexts = Arrays.asList("Sitemap", "Shipping & Returns", "Privacy Notice",
                 "Conditions of Use", "About us", "Contact us");
-        List<String> expectedLinkHrefs = Arrays.asList("http://demowebshop.tricentis.com/sitemap",
-                "http://demowebshop.tricentis.com/shipping-returns", "http://demowebshop.tricentis.com/privacy-policy",
-                "http://demowebshop.tricentis.com/conditions-of-use", "http://demowebshop.tricentis.com/about-us",
-                "http://demowebshop.tricentis.com/contactus");
+        List<String> expectedLinkHrefs = Arrays.asList("/sitemap", "/shipping-returns", "/privacy-policy",
+                "/conditions-of-use", "/about-us", "/contactus");
         //VERIFICATION
         verifyColumnData(informationColumnComp, expectedLinkTexts, expectedLinkHrefs);
     }
@@ -56,10 +60,8 @@ public class FooterTestFlow implements Urls {
 
         List<String> expectedLinkTexts = Arrays.asList("Search", "News", "Blog",
                 "Recently viewed products", "Compare products list", "New products");
-        List<String> expectedLinkHrefs = Arrays.asList("http://demowebshop.tricentis.com/search",
-                "http://demowebshop.tricentis.com/news", "http://demowebshop.tricentis.com/blog",
-                "http://demowebshop.tricentis.com/recentlyviewedproducts",
-                "http://demowebshop.tricentis.com/compareproducts", "http://demowebshop.tricentis.com/newproducts");
+        List<String> expectedLinkHrefs = Arrays.asList("/search",
+                "/news", "/blog", "/recentlyviewedproducts", "/compareproducts", "/newproducts");
 
         //VERIFICATION
         verifyColumnData(customerServiceColumnComponent, expectedLinkTexts, expectedLinkHrefs);
@@ -74,9 +76,9 @@ public class FooterTestFlow implements Urls {
 
         List<String> expectedLinkTexts = Arrays.asList("My account", "Orders", "Addresses",
                 "Shopping cart", "Wishlist");
-        List<String> expectedLinkHrefs = Arrays.asList("http://demowebshop.tricentis.com/customer/info",
-                "http://demowebshop.tricentis.com/customer/orders", "http://demowebshop.tricentis.com/customer/addresses",
-                "http://demowebshop.tricentis.com/cart", "http://demowebshop.tricentis.com/wishlist");
+        List<String> expectedLinkHrefs = Arrays.asList("/customer/info",
+                "/customer/orders", "/customer/addresses", "/cart", "/wishlist");
+
         //VERIFICATION
         verifyColumnData(myAccountColumnComp, expectedLinkTexts, expectedLinkHrefs);
 
@@ -117,7 +119,12 @@ public class FooterTestFlow implements Urls {
 
         for (String actualLinkHref : actualLinkHrefs) {
             //System.out.println("Hyperlink " + actualLinkHref);
-            Assert.assertTrue(expectedLinkHrefs.contains(actualLinkHref), "[ERR] Hyperlink " + actualLinkHref + " is incorrect");
+            if (actualLinkHref.contains(BASE_URL_2))
+                Assert.assertTrue(expectedLinkHrefs.contains(actualLinkHref.substring(BASE_URL_2.length())),
+                        "[ERR] Hyperlink " + actualLinkHref + " is incorrect value!");
+            else
+                Assert.assertTrue(expectedLinkHrefs.contains(actualLinkHref),
+                        "[ERR] Hyperlink " + actualLinkHref + " is incorrect value!");
         }
     }
 }
