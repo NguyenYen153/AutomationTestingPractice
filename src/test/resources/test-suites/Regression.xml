@@ -8,5 +8,11 @@
 
         </classes>
     </test>
+    <test name="Buying Computer" >
+        <classes>
+        <class name="test.order.CheapComputerBuyingTest"/>
+        <class name="test.order.StandarComputerBuyingTest"/>
+        </classes>
+    </test>
 
 </suite>

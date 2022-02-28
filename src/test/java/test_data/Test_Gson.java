@@ -1,6 +1,7 @@
 package test_data;
 
 import com.google.gson.Gson;
+import utils.data.DataObjectBuilder;
 
 public class Test_Gson {
     public static void main(String[] args) {
@@ -9,15 +10,13 @@ public class Test_Gson {
     }
 
     private static void testFromJsonToObject() {
-        String userJSONObject = "{\n" +
-                "  \"name\": \"Yen\",\n" +
-                "  \"age\": 15\n" +
-                "}";
-        User user;
-        Gson gson = new Gson();
+        String jsonFileLocation = "/src/test/resources/test-data/User.json";
+        User[] users = DataObjectBuilder.buildDataObjectFrom(jsonFileLocation, User[].class);
 
-        user = gson.fromJson(userJSONObject, User.class);
-        System.out.println(user);
+        for(User user: users){
+         System.out.println(user);
+        }
+
     }
 
     private static void testFromObjectToJson() {
