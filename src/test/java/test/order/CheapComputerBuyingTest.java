@@ -10,7 +10,7 @@ import url.Urls;
 import utils.data.DataObjectBuilder;
 
 public class CheapComputerBuyingTest extends BaseTest implements Urls {
-    @Test (dataProvider = "cheapComDataSet")
+    @Test (dataProvider = "cheapCompDataSet")
     public void testCheapComBuying(ComputerDataObject computerDataObject){
 
         driver.get(BASE_URL_2.concat("/build-your-cheap-own-computer"));
