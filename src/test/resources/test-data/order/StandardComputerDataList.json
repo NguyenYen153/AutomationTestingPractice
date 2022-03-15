@@ -1,0 +1,20 @@
+[
+  {
+    "processorType":"2.2GHz",
+    "ramType": "8GB",
+    "os": "Ubuntu",
+    "hdd": "400 GB"
+  },
+  {
+    "processorType":"2.5GHz",
+    "ramType": "4GB",
+    "os": "Windows 7",
+    "hdd": "400 GB"
+  },
+  {
+    "processorType":"2.2GHz",
+    "ramType": "2GB",
+    "os": "Windows 10",
+    "hdd": "320 GB"
+  }
+]

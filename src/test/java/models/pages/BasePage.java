@@ -11,6 +11,7 @@ public class BasePage extends Component {
 
     public BasePage(WebDriver driver) {
         super(driver, driver.findElement(By.tagName("html")));
+        this.driver = driver;
     }
 
     public FooterComponent footerComponent(){

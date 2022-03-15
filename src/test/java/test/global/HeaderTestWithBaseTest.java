@@ -19,6 +19,7 @@ public class HeaderTestWithBaseTest extends BaseTest implements Urls {
 
     @Test
     public void testRegisterPageHeader() {
+        WebDriver driver = getDriver();
         driver.get(BASE_URL_2.concat(REGISTER_PAGE));
 
             HeaderTestFlow headerTestFlow = new HeaderTestFlow(driver);
@@ -26,6 +27,7 @@ public class HeaderTestWithBaseTest extends BaseTest implements Urls {
     }
     @Test
     public void testHomepageHeader() {
+        WebDriver driver = getDriver();
         driver.get(BASE_URL_2.concat(HOME_PAGE));
 
         HeaderTestFlow headerTestFlow = new HeaderTestFlow(driver);
@@ -33,6 +35,7 @@ public class HeaderTestWithBaseTest extends BaseTest implements Urls {
     }
         @Test
         public void testCategorypageHeader() {
+            WebDriver driver = getDriver();
             List<String> categorySlugs = Arrays.asList("/books", "/computers", "/electronics");
             String randomSlug = categorySlugs.get(new SecureRandom().nextInt(categorySlugs.size()));
             driver.get(BASE_URL_2.concat(randomSlug));

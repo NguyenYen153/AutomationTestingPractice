@@ -1,14 +1,19 @@
 [
   {
     "processorType":"Fast",
-    "ramType": "8 GB"
+    "ramType": "8 GB",
+    "hdd": "400 GB"
   },
   {
     "processorType":"Fast",
-    "ramType": "4 GB"
+    "ramType": "4 GB",
+    "hdd": "320 GB"
+
   },
   {
     "processorType":"Fast",
-    "ramType": "2 GB"
+    "ramType": "2 GB",
+    "hdd": "400 GB"
+
   }
 ]

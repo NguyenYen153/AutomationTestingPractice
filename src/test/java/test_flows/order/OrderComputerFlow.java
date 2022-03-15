@@ -23,7 +23,18 @@ public class OrderComputerFlow <T extends ComputerEssentialComponent>{
         compEssentialComp.selectProcessorType(computerDataObject.getProcessorType());
         compEssentialComp.selectRAMType(computerDataObject.getRamType());
         System.out.println(compEssentialComp.productPrice());
+        compEssentialComp.selectHDD(computerDataObject.getHdd());
         compEssentialComp.setProductQuantity(10);
+        if(computerDataObject.getOs() != null){
+            compEssentialComp.selectOsType(computerDataObject.getOs());
+        }
         compEssentialComp.clickOnAddToCartBtn();
+        // Wait until the item added to cart
+        compEssentialComp.waitUntilItemAddedToCart();
+        // Then navigate to shopping cart
+        computerItemDetailsPage.headerComp().clickOnShoppingCartLink();
+
+
+
     }
 }

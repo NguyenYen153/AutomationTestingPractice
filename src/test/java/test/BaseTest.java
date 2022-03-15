@@ -1,6 +1,7 @@
 package test;
 
 import driver.DriverFactory;
+import driver.DriverFactoryEx;
 import io.qameta.allure.Allure;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -16,21 +17,32 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class BaseTest {
-    protected WebDriver driver;
-    public void initDriver (){
-        driver = DriverFactory.getChromeDriver();
+
+    private  final static List<DriverFactoryEx> webdriverThreadPool = Collections.synchronizedList(new ArrayList<>());
+    private static ThreadLocal<DriverFactoryEx> driverThread;
+
+    protected WebDriver getDriver(){
+        return driverThread.get().getChromeDriver();
     }
     @BeforeTest (alwaysRun = true)
-    public void beforeTesst(){
-        initDriver();
+    public void beforeTesst() {
+
+        driverThread = ThreadLocal.withInitial(() -> {
+            DriverFactoryEx webdriverThread = new DriverFactoryEx();
+            webdriverThreadPool.add(webdriverThread);
+            return webdriverThread;
+        });
     }
     @AfterTest (alwaysRun = true)
     public void afterTest(){
-        driver.quit();
+        driverThread.get().getChromeDriver().quit();
     }
     @AfterMethod (alwaysRun = true)
     public void afterMethod(ITestResult result){
@@ -49,6 +61,7 @@ public class BaseTest {
             String tekenDate = year + "-" + month + "-" + day + "-" + hr + "-" + min+ "-" + sec;
             String fileLocation = System.getProperty("user.dir") + "/screenshots/" + methodName + "_" + tekenDate + ".png";
             //Take screen shot
+            WebDriver driver = driverThread.get().getChromeDriver();
             File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
             // Attach into allure report
             try{
