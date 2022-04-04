@@ -6,10 +6,10 @@
             <class name="test.order.CheapComputerBuyingTest"/>
         </classes>
     </test>
-<!--    <test name="Buying Standard Computer" parallel= "tests" thread-count="4">-->
-<!--        <classes>-->
-<!--        <class name="test.order.StandardComputerBuyingTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Buying Standard Computer" parallel= "tests" thread-count="4">
+        <classes>
+        <class name="test.order.StandardComputerBuyingTest"/>
+        </classes>
+    </test>
 
 </suite>

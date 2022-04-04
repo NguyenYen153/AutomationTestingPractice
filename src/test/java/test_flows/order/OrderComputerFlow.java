@@ -1,13 +1,17 @@
 package test_flows.order;
 
 import models.components.cart.CartItemRowComponent;
+import models.components.checkout.BillingAddressComponent;
 import models.components.order.ComputerEssentialComponent;
+import models.pages.CheckoutOptionPage;
+import models.pages.CheckoutPage;
 import models.pages.ComputerItemDetailsPage;
 import models.pages.ShoppingCartPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import test_data.ComputerDataObject;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.List;
@@ -94,8 +98,43 @@ public class OrderComputerFlow <T extends ComputerEssentialComponent>{
 
         }
         Assert.assertEquals(currentSubTotals, allItemPrices, "[ERR] Shopping cart item's subtotal is incorrect!");
+        Map<String, Double> priceCategories = shoppingCartPage.totalComponent().priceCategories();
+        double checkoutSubTotal = 0;
+        double checkoutOtherFees = 0;
+        double checkoutTotal = 0;
+        for (String priceType : priceCategories.keySet()) {
+            if (priceType.startsWith("Sub-Total")) {
+                checkoutSubTotal = priceCategories.get(priceType);
+            } else if (priceType.startsWith("Total")) {
+                checkoutTotal = priceCategories.get(priceType);
+            } else {
+                checkoutOtherFees = checkoutOtherFees + priceCategories.get(priceType);
+            }
+        }
+        Assert.assertEquals(checkoutSubTotal, currentSubTotals ,"[ERR] Checkout sub-total is incorrect!");
+        Assert.assertEquals(checkoutSubTotal + checkoutOtherFees, checkoutTotal ,"[ERR] Checkout total is incorrect!");
+    }
+    public void agreeTosAndCheckoutAsGuest(){
+        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
+        shoppingCartPage.totalComponent().agreeTOS().clickOnCheckoutBtn();
+        new CheckoutOptionPage(driver).clickOnCheckoutAsGuestBtn();
     }
 
+    public void inputBillingAddress(){
+        CheckoutPage checkoutPage = new CheckoutPage(driver);
+        BillingAddressComponent billingAddressComp = checkoutPage.billingAddressComp();
+        billingAddressComp.selectInputNewAddress();
+        billingAddressComp.inputFirstname("Nguyen");
+        billingAddressComp.inputLastname("Thi Yen");
+        billingAddressComp.inputEmail("kunkunict@gmail.com");
+        billingAddressComp.selectCountry("United States");
+        billingAddressComp.selectState("Alabama");
+        billingAddressComp.inputCity("New York");
+        billingAddressComp.inputAdd1("Address 78");
+        billingAddressComp.inputZIPCode("12345");
+        billingAddressComp.inputPhoneNo("999-789-1234");
+        billingAddressComp.clickOnContinueBtn();
+    }
 
 
 }
