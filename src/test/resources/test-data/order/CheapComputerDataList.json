@@ -2,18 +2,21 @@
   {
     "processorType":"Fast",
     "ramType": "8 GB",
-    "hdd": "400 GB"
+    "hdd": "320 GB",
+    "softWare": "Image Viever"
   },
   {
     "processorType":"Fast",
     "ramType": "4 GB",
-    "hdd": "320 GB"
+    "hdd": "400 GB",
+    "softWare": "Office Suite"
 
   },
   {
     "processorType":"Fast",
     "ramType": "2 GB",
-    "hdd": "400 GB"
+    "hdd": "320 GB",
+    "softWare": "Other Office Suite"
 
   }
 ]

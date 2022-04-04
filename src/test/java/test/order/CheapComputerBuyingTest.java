@@ -14,7 +14,10 @@ import test_flows.order.OrderComputerFlow;
 import url.Urls;
 import utils.data.DataObjectBuilder;
 
+import java.security.SecureRandom;
+
 public class CheapComputerBuyingTest extends BaseTest implements Urls {
+    private double allItemPrices = 0;
     @Description("Buying Cheap Computer with data set")
     @Test (dataProvider = "cheapCompDataSet", description = "Buying cheap computer")
     //Them variable in pom.file
@@ -23,8 +26,11 @@ public class CheapComputerBuyingTest extends BaseTest implements Urls {
     public void testCheapComBuying(ComputerDataObject computerDataObject){
         WebDriver driver = getDriver();
         driver.get(BASE_URL_2.concat("/build-your-cheap-own-computer"));
-        OrderComputerFlow<CheapComputerComponent> orderComputerFlow = new OrderComputerFlow<>(driver, CheapComputerComponent.class, computerDataObject);
-        orderComputerFlow.buildCompSpecAndAddTocart();
+        int itemQuantity = new SecureRandom().nextInt(100) + 1;
+
+        OrderComputerFlow<CheapComputerComponent> orderComputerFlow = new OrderComputerFlow<>(driver, CheapComputerComponent.class, computerDataObject, itemQuantity);
+        allItemPrices = allItemPrices + orderComputerFlow.buildCompSpecAndAddTocart();
+        orderComputerFlow.verifyShoppingCart(allItemPrices);
 
     }
     //When method have a bug
@@ -34,7 +40,7 @@ public class CheapComputerBuyingTest extends BaseTest implements Urls {
     public void testSomething(){
         System.out.println("Test something");
     }
-    @DataProvider
+    @DataProvider(parallel = true)
     public ComputerDataObject[] cheapCompDataSet(){
         String cheapCompDataListLocation = "/src/test/resources/test-data/order/CheapComputerDataList.json";
         return DataObjectBuilder.buildDataObjectFrom(cheapCompDataListLocation, ComputerDataObject[].class);

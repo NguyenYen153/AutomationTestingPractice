@@ -29,6 +29,7 @@ public class DriverFactoryEx {
         WebDriverManager.chromedriver().setup();
         //Open a webpage
         driver = new ChromeDriver(chromeoptions);
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return driver;
     }

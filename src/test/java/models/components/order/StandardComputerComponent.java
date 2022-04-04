@@ -21,20 +21,20 @@ public class StandardComputerComponent extends ComputerEssentialComponent {
 
     @Override
     @Step("Select processor type as {prefixValue}")
-    public void selectProcessorType(String prefixValue) {
+    public String selectProcessorType(String prefixValue) {
         WebElement processorDropdownElem = component.findElements(productAttibuteSel).get(PROCESSOR_DROPDOWN_INDEX);
-        selectOption(processorDropdownElem, prefixValue);
+        return selectOption(processorDropdownElem, prefixValue);
         //System.out.println("selectProcessorType | StandardComputerComponent");
     }
 
     @Override
     @Step("Select RAM type as {prefixValue}")
-    public void selectRAMType(String prefixValue) {
+    public String selectRAMType(String prefixValue) {
         WebElement ramDropdownElem = component.findElements(productAttibuteSel).get(RAM_DROPDOWN_INDEX);
-        selectOption(ramDropdownElem, prefixValue);
+        return selectOption(ramDropdownElem, prefixValue);
         //System.out.println("selectRAMType | StandardComputerComponent");
     }
-    private void selectOption(WebElement dropdownElem, String prefixValue){
+    private String selectOption(WebElement dropdownElem, String prefixValue){
         Select select = new Select(dropdownElem);
         //Get all options
         List<WebElement> allOptions = select.getOptions();
@@ -51,5 +51,6 @@ public class StandardComputerComponent extends ComputerEssentialComponent {
             throw new IllegalArgumentException("[ERR] The option " + prefixValue + " is not in the dropdown");
         }
         select.selectByVisibleText(fullStrOption);
+        return fullStrOption;
     }
 }

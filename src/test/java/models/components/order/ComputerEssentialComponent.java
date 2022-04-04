@@ -4,17 +4,30 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import java.util.List;
 
 public abstract class ComputerEssentialComponent extends BaseItemDetailsComponent {
+
+    private static final By allOptionsSel = By.cssSelector(".option-list input");
 
     public ComputerEssentialComponent(WebDriver driver, WebElement component) {
         super(driver, component);
     }
 
-    public abstract void selectProcessorType(String type);
-    public abstract void selectRAMType(String type);
-    protected void selectCompSpecOption(String option){
-        String selectorString = "//label[contains(text(), \"" + option + "\")]";
+    public abstract String selectProcessorType(String type);
+    public abstract String selectRAMType(String type);
+
+    @Step("Unselect all default options")
+    public void unselectDefaultOptions(){
+        List<WebElement> allOptionElems = component.findElements(allOptionsSel);
+        allOptionElems.forEach(option -> {
+            if(option.getAttribute("checked") != null){
+                option.click();
+            }
+        });
+    }
+    protected String selectCompSpecOption(String option){
+        String selectorString = "//label[contains(text(), \""  + option + "\")]";
         By optionSel = By.xpath(selectorString);
         WebElement optionElem = null;
         try{
@@ -22,18 +35,23 @@ public abstract class ComputerEssentialComponent extends BaseItemDetailsComponen
         } catch (Exception ignored){}
         if(optionElem != null){
             optionElem.click();
+            return optionElem.getText();
         }
         else {
             throw new RuntimeException("The option " + option + " is not existing to select");
         }
     }
     @Step("Select HDD type as {hddType}")
-    public void selectHDD(String hddType){
-        selectCompSpecOption(hddType);
+    public String selectHDD(String hddType){
+        return selectCompSpecOption(hddType);
     }
 
     @Step("Select Os type as {osType}")
-    public void selectOsType(String osType){
-        selectCompSpecOption(osType);
+    public String selectOsType(String osType){
+        return selectCompSpecOption(osType);
+    }
+    @Step("Select software type as {softwareType}")
+    public String selectSoftware(String softwareType){
+        return selectCompSpecOption(softwareType);
     }
 }
