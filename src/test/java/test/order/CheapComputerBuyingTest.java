@@ -10,6 +10,8 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import test.BaseTest;
 import test_data.ComputerDataObject;
+import test_data.CreditCardType;
+import test_data.PaymentMethod;
 import test_flows.order.OrderComputerFlow;
 import url.Urls;
 import utils.data.DataObjectBuilder;
@@ -33,6 +35,12 @@ public class CheapComputerBuyingTest extends BaseTest implements Urls {
         orderComputerFlow.verifyShoppingCart(allItemPrices);
         orderComputerFlow.agreeTosAndCheckoutAsGuest();
         orderComputerFlow.inputBillingAddress();
+        orderComputerFlow.inputShippingAddress();
+        orderComputerFlow.selectShippingMethod();
+        orderComputerFlow.selectPaymentMethod(PaymentMethod.CREDIT_CARD);
+        orderComputerFlow.inputPaymentInfo(CreditCardType.VISA);
+        orderComputerFlow.confirmOrder();
+        allItemPrices = 0;
 
     }
     //When method have a bug
@@ -42,7 +50,7 @@ public class CheapComputerBuyingTest extends BaseTest implements Urls {
     public void testSomething(){
         System.out.println("Test something");
     }
-    @DataProvider(parallel = true)
+    @DataProvider
     public ComputerDataObject[] cheapCompDataSet(){
         String cheapCompDataListLocation = "/src/test/resources/test-data/order/CheapComputerDataList.json";
         return DataObjectBuilder.buildDataObjectFrom(cheapCompDataListLocation, ComputerDataObject[].class);

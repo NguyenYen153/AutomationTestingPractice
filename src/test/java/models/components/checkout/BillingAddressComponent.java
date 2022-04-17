@@ -5,6 +5,7 @@ import models.ComponentCssSelector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 @ComponentCssSelector(value = "#opc-billing")
@@ -16,6 +17,7 @@ public class BillingAddressComponent extends Component {
     private final static By emailSel = By.id("BillingNewAddress_Email");
     private final static By selectCountryDropdownSel = By.id("BillingNewAddress_CountryId");
     private final static By selectStateDropdownSel = By.id("BillingNewAddress_StateProvinceId");
+    private final static By loadingStateProgressBarSel = By.id("states-loading-progress");
     private final static By citySel = By.id("BillingNewAddress_City");
     private final static By add1Sel = By.id("BillingNewAddress_Address1");
     private final static By zipCodeSel = By.id("BillingNewAddress_ZipPostalCode");
@@ -53,6 +55,7 @@ public class BillingAddressComponent extends Component {
     public void selectCountry(String country){
         Select select = new Select(component.findElement(selectCountryDropdownSel));
         select.selectByVisibleText(country);
+        wait.until(ExpectedConditions.invisibilityOf(component.findElement(loadingStateProgressBarSel)));
 
         // TODO: wait until country value loaded
     }
@@ -85,6 +88,8 @@ public class BillingAddressComponent extends Component {
 
     @Step(value = "Click on continue button")
     public void clickOnContinueBtn(){
-        component.findElement(continueBtnSel).click();
+        WebElement continueBtnElem = component.findElement(continueBtnSel);
+        continueBtnElem.click();
+        wait.until(ExpectedConditions.invisibilityOf(continueBtnElem));
     }
 }
